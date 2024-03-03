@@ -19,7 +19,8 @@ function registerNodeTouchAction(node_name, action_function)
         local pos = player:get_pos()
         local spd = player:get_velocity()
         local spdy = math.min(player:get_velocity().y / 10, -0.8)
-        return blockWithinRange(pos.x + 0.15, pos.y - 0.08 + spdy, pos.z + 0.15, pos.x + 0.85, pos.y + 2 + spdy, pos.z + 0.85, name)
+        --return blockWithinRange(pos.x + 0.15, pos.y - 0.08 + spdy, pos.z + 0.15, pos.x + 0.85, pos.y + 2 + spdy, pos.z + 0.85, name)
+		return blockWithinRange(pos.x + 0.15, pos.y - 0.58 + spdy, pos.z + 0.15, pos.x + 0.85, pos.y + 2.5 + spdy, pos.z + 0.85, name)
     end
 
     minetest.register_globalstep(function(dtime)
