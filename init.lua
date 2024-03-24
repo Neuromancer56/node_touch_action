@@ -19,8 +19,12 @@ function registerNodeTouchAction(node_name, action_function)
         local pos = player:get_pos()
         local spd = player:get_velocity()
         local spdy = math.min(player:get_velocity().y / 10, -0.8)
-        --return blockWithinRange(pos.x + 0.15, pos.y - 0.08 + spdy, pos.z + 0.15, pos.x + 0.85, pos.y + 2 + spdy, pos.z + 0.85, name)
-		return blockWithinRange(pos.x + 0.15, pos.y - 0.58 + spdy, pos.z + 0.15, pos.x + 0.85, pos.y + 2.5 + spdy, pos.z + 0.85, name)
+        --return blockWithinRange(pos.x + 0.15, pos.y - 0.08 + spdy, pos.z + 0.15, pos.x + 0.85, pos.y + 2 + spdy, pos.z + 0.85, name)  --original
+		--return blockWithinRange(pos.x + 0.15, pos.y - 0.58 + spdy, pos.z + 0.15, pos.x + 0.85, pos.y + 2.5 + spdy, pos.z + 0.85, name)  --too high above still causing action 
+        --return blockWithinRange(pos.x + 0.15, pos.y  + 0.15, pos.z + 0.15, pos.x + 0.85, pos.y + 0.15 , pos.z + 0.85, name) 
+        return blockWithinRange(pos.x + 0.15, pos.y + 0.5 , pos.z + 0.15, pos.x + 0.85, pos.y + 2.25 , pos.z + 0.85, name)
+        --first y is above.  1 to 0   +1 seems to be I have to go too far down.  +0 is not far down enough  +.5 seems just right.
+        --second y is from below +2.5 is I don't have to go quite high enough, +2 is just about right maybe have to goa touch too high  +1 is have to go way too high +2.25 seems just right
     end
 
     minetest.register_globalstep(function(dtime)
