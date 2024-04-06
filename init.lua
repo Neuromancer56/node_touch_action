@@ -41,13 +41,42 @@ function registerNodeTouchAction(node_name, action_function)
     end)
 end
 
+--get the x & z position offsets of the touched node relative to the player position.
+function get_direction_offsets(player)
+    local yaw = player:get_look_horizontal()
+    local yaw_degrees = (yaw + 2 * math.pi) % (2 * math.pi) * 180 / math.pi
+
+    local x_offset = 0
+    local z_offset = 0
+
+    if yaw_degrees >= 225 and yaw_degrees < 315 then
+        x_offset = 1
+    elseif yaw_degrees >= 45 and yaw_degrees < 135 then
+        x_offset = -1
+    end
+
+    if yaw_degrees >= 315 or yaw_degrees < 45 then
+        z_offset = 1
+    elseif yaw_degrees >= 135 and yaw_degrees < 225 then
+        z_offset = -1
+    end
+
+    return x_offset, z_offset
+end
+
 -- Example usage:
 -- Define your action function
 --[[
-local function cactusAction(player)
+local function cactusTouchAction(player)
     player:set_hp(player:get_hp() - 1, "cactus")
+	
+	--optional:
+	local pos = player:get_pos()
+	local x_offset, z_offset= get_direction_offsets(player)
+	local touched_pos = {x = pos.x + x_offset, y = pos.y, z = pos.z + z_offset}  --note you may need to adjust the y position depending on your situation
+	
 end
 
--- Register global step action for cactus nodes
-registerNodeTouchAction("default:cactus", cactusAction)
+-- Register global touch action for cactus nodes
+registerNodeTouchAction("default:cactus", cactusTouchAction)
 ]]
